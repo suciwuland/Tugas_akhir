@@ -1,0 +1,21 @@
+body, html {
+    height: 100vh;
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+
+
+.btn-outline-secondary {
+    width: 100%;
+}
+
+.btn-check:checked + .btn-outline-secondary {
+    background-color: #007bff;
+    color: white;
+}

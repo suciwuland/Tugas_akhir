@@ -1,0 +1,139 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Risk Check System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <!-- Brand with icon -->
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-heart-fill text-danger"></i> Heart Disease Risk Check System
+            </a>
+            <!-- Toggler/collapsibe Button -->
+
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row py-4">
+            <div class="col-12 text-center">
+                <h2>Patient Details</h2>
+            </div>
+            <div class="col-12 d-flex justify-content-between mt-4 px-4">
+                <div class="d-flex flex-column align-items-center">
+                    <img src="{% static 'img/1.png' %}" alt="Placeholder Image">
+                    <span class="fw-bold mt-2">Age</span>
+                    <span class="text-muted">{{ age }}</span>
+                </div>
+                <div class="d-flex flex-column align-items-center">
+                    <img src="{% static 'img/2.png' %}" alt="Placeholder Image">
+                    <span class="fw-bold mt-2">Gender</span>
+                    <span class="text-muted">{{gender }}</span>
+                </div>
+                <div class="d-flex flex-column align-items-center">
+                    <img src="{% static 'img/3.png' %}" alt="Placeholder Image">
+                    <span class="fw-bold mt-2">Cholesterol Level</span>
+                    <span class="text-muted">{{ cholesterol  }} mg/dL</span>
+                </div>
+                <div class="d-flex flex-column align-items-center">
+                    <img src="{% static 'img/4.png' %}" alt="Placeholder Image">
+                    <span class="fw-bold mt-2">Blood Pressure</span>
+                    <span class="text-muted">{{ systolic }}/{{ diastolic }} mmHg</span>
+                </div>
+                <div class="d-flex flex-column align-items-center">
+                    <img src="{% static 'img/5.png' %}" alt="Placeholder Image">
+                    <span class="fw-bold mt-2">Heart Rate</span>
+                    <span class="text-muted">{{ heartRate }} bpm</span>
+                </div>
+                <div class="d-flex flex-column align-items-center">
+                    <img src="{% static 'img/6.png' %}" alt="Placeholder Image">
+                    <span class="fw-bold mt-2">Family History</span>
+                    <span class="text-muted">{{ familyHistory }}</span>
+                </div>
+                <div class="d-flex flex-column align-items-center">
+                    <img src="{% static 'img/7.png' %}" alt="Placeholder Image">
+                    <span class="fw-bold mt-2">Smoking</span>
+                    <span class="text-muted">{{  smoking }}</span>
+                </div>
+                <div class="d-flex flex-column align-items-center">
+                    <img src="{% static 'img/8.png' %}" alt="Placeholder Image">
+                    <span class="fw-bold mt-2">Body Mass Index</span>
+                    <span class="text-muted">{{bmi }}</span>
+                </div>
+                <div class="d-flex flex-column align-items-center">
+                    <img src="{% static 'img/10.png' %}" alt="Placeholder Image">
+                    <span class="fw-bold mt-2">Diet</span>
+                    <span class="text-muted">{{ eatingPatterns }}</span>
+                </div>
+                
+            </div>
+            <div class="col-12 pt-5 my-3">
+                <center>
+                    <h2>Risk Heart Disease</h2>
+                    <div class="d-flex flex-column align-items-center my-5">
+                        <img src="{% static 'img/9.png' %}" alt="Placeholder Image">
+                        <span class="text-muted mt-2">Results</span>
+                        <span class="fw-bold h3 ">{{ prediction  }}</span>
+                    </div>
+                </center>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <h2>Actions to </h2>
+        <div class="row py-3">
+            <div class="col-4">
+                <!-- Card wrapped in an anchor tag -->
+                <a href="https://example.com" class="text-decoration-none">
+                    <div class="card">
+                        <img src="https://via.placeholder.com/286x180" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card Tagline</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-4">
+                <!-- Card wrapped in an anchor tag -->
+                <a href="https://example.com" class="text-decoration-none">
+                    <div class="card">
+                        <img src="https://via.placeholder.com/286x180" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card Tagline</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-4">
+                <!-- Card wrapped in an anchor tag -->
+                <a href="https://example.com" class="text-decoration-none">
+                    <div class="card">
+                        <img src="https://via.placeholder.com/286x180" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card Tagline</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

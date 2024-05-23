@@ -1,0 +1,166 @@
+{% extends "layout/base.html" %}
+
+
+{% block title %}DataSet{% endblock %}
+
+{% block css %}
+<link href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="col-12 text-center" id="dataset">
+    <div class="mb-3">
+        <h2>Data Pasien</h2>
+    </div>
+</div>
+
+<div class="col-12 py-3">
+    <div class="row ">
+        <div class="col-md-6"  >
+            <div class="card">
+                <div class="card-body">
+                    <canvas id="barChart" width="400" height="300" class="mx-auto"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6" >
+            <div class="card">
+                <div class="card-body">
+                    <canvas id="donutChart"   class="mx-auto"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 py-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover" id="dataTablesId">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Age</th>
+                                    <th>Sex</th>
+                                    <th>Cholesterol</th>
+                                    <th>Blood Pressure</th>
+                                    <th>Heart Rate</th>
+                                    <th>Diabetes</th>
+                                    <th>Family History</th>
+                                    <th>Smoking</th>
+                                    <th>Obesity</th>
+                                    <th>Diet</th>
+                                    <th>BMI</th>
+                                    <th>Heart Attack Risk</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for data in datapasien %}
+                                <tr>
+                                 <td>{{ data.age }}</td>
+                                 <td>{{ data.gender }}</td>
+                                 <td>{{ data.cholesterol }}</td>
+                                 <td>{{ data.systolic }}/{{ data.diastolic }}</td>
+                                 <td>{{ data.heartRate }}</td>
+                                 <td>{{ data.diabetes }}</td>
+                                 <td>{{ data.familyHistory }}</td>
+                                 <td>{{ data.smoking }}</td>
+                                 <td>{{ data.bmiStatus }}</td>
+                                 <td>{{ data.eatingPatterns }}</td>
+                                 <td>{{ data.bmi }}</td>
+                                 <td>{{ data.prediction }}</td>
+                                 </tr>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+<script>
+    $(document).ready( function () {
+    $('#dataTablesId').DataTable();
+} );
+    
+    document.addEventListener('DOMContentLoaded', function () {
+        var barCtx = document.getElementById('barChart').getContext('2d');
+
+        var barChart = new Chart(barCtx, {
+            type: 'bar',
+            data: {
+                labels: {{ bar_pasien.labels|safe }},
+                datasets: [
+                    { 
+                        label: 'Male',
+                        data: {{ bar_pasien.male|safe }}, 
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 88, 132, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 88, 132, 0.2)',
+                            'rgba(255, 88, 132, 0.2)'
+                        ],
+                        borderWidth: 1
+                    },
+                    { 
+                        label: 'Female',
+                        data: {{ bar_pasien.female|safe }}, 
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 99, 132, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 88, 132, 0.2)',
+                            'rgba(255, 88, 132, 0.2)'
+                        ],
+                        borderWidth: 1
+                    }
+            ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        var donutCtx = document.getElementById('donutChart').getContext('2d');
+        var donutChart = new Chart(donutCtx, {
+            type: 'pie',
+            data: {
+                labels: {{ pie_pasien.labels|safe }},
+                datasets: [{
+                    data: {{ pie_pasien.data|safe }}, // Sample data
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+        });
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}

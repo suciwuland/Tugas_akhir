@@ -1,0 +1,111 @@
+{% extends "layout/base.html" %}
+
+
+{% block title %}DataSet{% endblock %}
+
+{% block css %}
+<link href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+
+{% endblock %}
+
+{% block content %}
+
+<div class="col-12 text-center" id="dataset">
+    <div class="mb-3">
+        <h2>Setting Dataset</h2>
+    </div>
+    
+    <!-- Buttons -->
+    <div>
+        <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#importDatasetModal">Import Data</button>
+        <a href="{% url 'dataset.create' %}" class="btn btn-secondary">Add Data</a>
+    </div>
+</div>
+
+<div class="col-12 py-3">
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover" id="dataTablesId">
+                    <thead class="table-dark" >
+                        <tr>
+                            <th>Age</th>
+                            <th>Sex</th>
+                            <th>Cholesterol</th>
+                            <th>Blood Pressure</th>
+                            <th>Heart Rate</th>
+                            <th>Diabetes</th>
+                            <th>Family History</th>
+                            <th>Smoking</th>
+                            <th>Obesity</th>
+                            <th>Diet</th>
+                            <th>BMI</th>
+                            <th>Heart Attack Risk</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       {% for data in dataset %}
+                       <tr>
+                        <td>{{ data.age }}</td>
+                        <td>{{ data.sex }}</td>
+                        <td>{{ data.cholesterol }}</td>
+                        <td>{{ data.blood_pressure }}</td>
+                        <td>{{ data.heart_rate }}</td>
+                        <td>{{ data.diabetes }}</td>
+                        <td>{{ data.family_history }}</td>
+                        <td>{{ data.smoking }}</td>
+                        <td>{{ data.obesity }}</td>
+                        <td>{{ data.diet }}</td>
+                        <td>{{ data.bmi }}</td>
+                        <td>{{ data.heart_attack_risk }}</td>
+                        <td>
+                          <a href="{% url 'dataset.edit' id=data.id_str %}" class="btn btn-sm btn-primary">Edit</a>
+                          <a href="{% url 'dataset.destroy' id=data.id_str %}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?');">Delete</a>
+                                
+                         </td>
+                        </tr>
+                       {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="importDatasetModal"  tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalLabel">Import Dataset</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Form for file upload -->
+          <form id="datasetImportForm" action="{% url 'dataset.importexcel' %}" method="post" enctype="multipart/form-data" >
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="datasetFile" class="form-label">Select dataset file</label>
+              <input type="file" class="form-control" name="file" id="datasetFile" required>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-primary">Import</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+<script>
+
+$(document).ready( function () {
+    $('#dataTablesId').DataTable();
+} );
+</script>
+{% endblock %}
