@@ -6,10 +6,12 @@ from apphealth.models.model_init import DataPasienCollection,DataUserAdmin
 from django.contrib import messages
 from django.urls import reverse
 from bson import ObjectId
+from bs4 import BeautifulSoup
 from django.contrib.auth.hashers import check_password
+import requests
+import json
 collectionDatapasien = DataPasienCollection()
 collectionAdmin = DataUserAdmin()
-
 
 @require_GET
 def index(request):
@@ -116,3 +118,22 @@ def logout_view(request):
 def signup_view(request):
     # Implement signup logic here
     return render(request, 'accounts/signup.html')
+
+def get_metadata_from_urls(url_list):
+    metadata_list = []
+    for url in url_list:
+        response = requests.get(url)
+        soup = BeautifulSoup(response.text, 'html.parser')
+        title = soup.find('title').text
+        meta_description = soup.find('meta', attrs={'name': 'description'})
+        description = meta_description['content'] if meta_description else ''
+        meta_image = soup.find('meta', attrs={'property': 'og:image'})
+        image = meta_image['content'] if meta_image else ''
+        metadata = {
+            'title': title,
+            'description': description,
+            'image': image,
+            'url': url
+        }
+        metadata_list.append(metadata)
+    return json.dumps(metadata_list, indent=2)
