@@ -39,7 +39,8 @@ urlpatterns = [
     path('login/', general_controller.login_view, name='login'),
     path('auth/', general_controller.auth, name='login.auth'),
     path('logout/', general_controller.logout_view, name='logout'),
-    path('signup/', general_controller.signup_view, name='signup'),
+    path('register/', general_controller.signup_view, name='signup'),
+    path('register/store', general_controller.storeRegister, name='register.store'),
 
 
 ]

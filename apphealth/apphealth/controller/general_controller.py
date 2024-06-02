@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.urls import reverse
 from bson import ObjectId
 from bs4 import BeautifulSoup
-from django.contrib.auth.hashers import check_password
+from django.contrib.auth.hashers import check_password,make_password
 import requests
 import json
 collectionDatapasien = DataPasienCollection()
@@ -116,8 +116,7 @@ def logout_view(request):
     return redirect('login')
 
 def signup_view(request):
-    # Implement signup logic here
-    return render(request, 'accounts/signup.html')
+    return render(request, 'register.html')
 
 def get_metadata_from_urls(url_list):
     metadata_list = []
@@ -137,3 +136,27 @@ def get_metadata_from_urls(url_list):
         }
         metadata_list.append(metadata)
     return json.dumps(metadata_list, indent=2)
+
+
+def storeRegister(request):
+    form = request.POST
+
+    if form['password'] != form['password_confirm']:
+        messages.error(request, "Password tidak sama")
+        return redirect('register')
+
+    data = {
+        'nama_user': form['nama_user'],
+        'username': form['username'],
+        'password': make_password(form['password']),
+    }
+    
+    existing_user = collectionAdmin.find_one({'username': data['username']})
+    if existing_user:
+        messages.error(request, 'Username sudah terdaftar')
+        return redirect('register')
+    
+    collectionAdmin.insert_one(data)
+    messages.success(request, 'User berhasil ditambahkan')
+    
+    return redirect('login')
