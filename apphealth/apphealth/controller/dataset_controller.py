@@ -45,16 +45,17 @@ def store(request):
     systolic = request.POST.get('systolic')
     diastolic = request.POST.get('diastolic')
     heartRate = request.POST.get('heartRate')
-    eatingPatterns = request.POST.get('eatingPatterns')
     bmi = request.POST.get('bmi')
     bmiStatus = request.POST.get('bmiStatus')
     heartAttackRisk = request.POST.get('heart_attack_risk')
+    glucose = request.POST.get('glucose')
 
 
     newDiabetes = 1 if request.POST.get('diabetes') == 'yes' else 0
-    newFamilyHistory = 1 if request.POST.get('familyHistory') == 'yes' else 0
     newSmoking = 1 if request.POST.get('smoking') == 'yes' else 0
     obesity = int(request.POST.get('obesity'))
+    heartAttackRisk = 'yes' if heartAttackRisk == "1" else 'No'
+    
     newData = {
         'age': age,
         'sex': gender.capitalize(),
@@ -62,11 +63,10 @@ def store(request):
         'blood_pressure': f'{systolic}/{diastolic}',
         'heart_rate': heartRate,
         'diabetes': newDiabetes,
-        'family_history': newFamilyHistory,
         'smoking': newSmoking,
         'obesity': obesity,
-        'diet': eatingPatterns.capitalize(),
         'bmi': bmi,
+        'glucose': glucose,
         'heart_attack_risk': heartAttackRisk
     }
 
@@ -86,16 +86,18 @@ def updated(request, id):
     systolic = request.POST.get('systolic')
     diastolic = request.POST.get('diastolic')
     heartRate = request.POST.get('heartRate')
-    eatingPatterns = request.POST.get('eatingPatterns')
     bmi = request.POST.get('bmi')
     bmiStatus = request.POST.get('bmiStatus')
     heartAttackRisk = request.POST.get('heart_attack_risk')
+    glucose = request.POST.get('glucose')
+
 
 
     newDiabetes = 1 if request.POST.get('diabetes') == 'yes' else 0
-    newFamilyHistory = 1 if request.POST.get('familyHistory') == 'yes' else 0
     newSmoking = 1 if request.POST.get('smoking') == 'yes' else 0
     obesity = int(request.POST.get('obesity'))
+    heartAttackRisk = 'yes' if heartAttackRisk == "1" else 'No'
+
     data = {
         'age': age,
         'sex': gender.capitalize(),
@@ -103,11 +105,10 @@ def updated(request, id):
         'blood_pressure': f'{systolic}/{diastolic}',
         'heart_rate': heartRate,
         'diabetes': newDiabetes,
-        'family_history': newFamilyHistory,
         'smoking': newSmoking,
         'obesity': obesity,
-        'diet': eatingPatterns.capitalize(),
         'bmi': bmi,
+        'glucose': glucose,
         'heart_attack_risk': heartAttackRisk
     }
     collectionDataset.update_one({'_id': ObjectId(id)}, {'$set': data})
@@ -140,11 +141,11 @@ def importDataExcel(request):
 
     # Definisikan nama kolom yang diharapkan
     expected_columns = [
-        'Age', 'Sex', 'Cholesterol', 'Blood Pressure', 'Heart Rate', 'Diabetes', 
-        'Family History', 'Smoking', 'Obesity', 'Diet', 'BMI', 'Heart Attack Risk'
+        'Gender', 'age', 'Smoker', 'diabetes', 'Chol', 
+        'sysBP', 'diaBP', 'BMI', 'heartRate', 'glucose','Heart_risk'
     ]
 
-    # Memastikan header sesuai dengan yang diharapkan
+    # # Memastikan header sesuai dengan yang diharapkan
     if list(df.columns) != expected_columns:
         messages.error(request, f"Expected columns: {expected_columns}, but got: {list(df.columns)}")
         return redirect('dataset.index')
@@ -154,18 +155,17 @@ def importDataExcel(request):
     for index, row in df.iterrows():
         # Example of processing each row
         row_data = row.to_dict()
-        age = row_data['Age']
-        sex = row_data['Sex']
-        cholesterol = row_data['Cholesterol']
-        blood_pressure = row_data['Blood Pressure']
-        heart_rate = row_data['Heart Rate']
-        diabetes = row_data['Diabetes']
-        family_history = row_data['Family History']
-        smoking = row_data['Smoking']
-        obesity = row_data['Obesity']
-        diet = row_data['Diet']
+        age = row_data['age']
+        sex = row_data['Gender']
+        cholesterol = row_data['Chol']
+        blood_pressure = str(row_data['sysBP']) + '/' + str(row_data['diaBP'])
+        heart_rate = row_data['heartRate']
+        diabetes = row_data['diabetes']
+        smoking = row_data['Smoker']
+        glucose = row_data['glucose']
         bmi = row_data['BMI']
-        heart_attack_risk = row_data['Heart Attack Risk']
+        obesity = is_obese(float(row_data['BMI']))
+        heart_attack_risk = row_data['Heart_risk']
         
         datasetManyData.append({
             'age': age,
@@ -174,10 +174,9 @@ def importDataExcel(request):
             'blood_pressure': blood_pressure,
             'heart_rate': heart_rate,
             'diabetes': diabetes,
-            'family_history': family_history,
             'smoking': smoking,
             'obesity': obesity,
-            'diet': diet,
+            'glucose': glucose,
             'bmi': float(bmi),
             'heart_attack_risk': heart_attack_risk
         })
@@ -187,3 +186,8 @@ def importDataExcel(request):
     messages.success(request, 'Successfully imported dataset')
     return redirect('dataset.index')
     
+def is_obese(bmi):
+    if bmi >= 30:
+        return 1
+    else:
+        return 0
