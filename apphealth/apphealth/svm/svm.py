@@ -13,7 +13,7 @@ def preprocess_data(df):
     
     # Encode categorical data
     df['Sex'] = df['Sex'].map({'Male': 0, 'Female': 1})
-    df['Diet'] = df['Diet'].map({'Healthy': 0, 'Average': 1, 'Unhealthy': 2})
+    # df['Diet'] = df['Diet'].map({'Healthy': 0, 'Average': 1, 'Unhealthy': 2})
     
     return df
 
@@ -86,10 +86,9 @@ def training_dataset():
     blood_pressure = []
     heart_rate=[]
     diabetes=[]
-    family_history=[]
     smoking=[]
     obesity=[]
-    diet=[]
+    glucose=[]
     bmi=[]
     heart_attack_status=[]
     dataset = list(collectionDataset.find())
@@ -100,12 +99,12 @@ def training_dataset():
         blood_pressure.append(data.get('blood_pressure'))
         heart_rate.append(int(data.get('heart_rate')))
         diabetes.append(int(data.get('diabetes')))
-        family_history.append(int(data.get('family_history')))
         smoking.append(int(data.get('smoking')))
         obesity.append(int(data.get('obesity')))
-        diet.append(data.get('diet'))
         bmi.append(float(data.get('bmi')))
-        heart_attack_status.append(int(data.get('heart_attack_risk')))
+        glucose.append(float(data.get('glucose')))
+        heartAttackConver = 1 if data.get('heart_attack_risk') == 'yes' else 0
+        heart_attack_status.append(heartAttackConver)
 
 
     training_data = {
@@ -115,10 +114,9 @@ def training_dataset():
         'Blood Pressure': blood_pressure,
         'Heart Rate': heart_rate,
         'Diabetes': diabetes,
-        'Family History': family_history,
         'Smoking': smoking,
         'Obesity': obesity,
-        'Diet': diet,
+        'Glucose': glucose,
         'BMI': bmi,
         'Heart Attack Risk': heart_attack_status
     }

@@ -43,12 +43,15 @@
                                 <input type="number" class="form-control" name="cholesterol" id="cholesterol" placeholder="Enter your cholesterol levels" required>
                             </div>
                             <div class="row g-2 mb-3">
+                                <div class="col-2">
+                                    <label for="systolic" class="form-label mt-5">Blood Pressure</label>
+                                </div>
                                 <div class="col">
-                                    <label for="systolic" class="form-label">Blood Pressure Systolic</label>
+                                    <label for="systolic" class="form-label">Systolic</label>
                                     <input type="number" name="systolic" class="form-control" id="systolic" placeholder="Systolic" required>
                                 </div>
                                 <div class="col">
-                                    <label for="diastolic" class="form-label">Blood Pressure Diastolic</label>
+                                    <label for="diastolic" class="form-label">Diastolic</label>
                                     <input type="number" name="diastolic" class="form-control" id="diastolic" placeholder="Diastolic" required>
                                 </div>
                             </div>
@@ -67,14 +70,8 @@
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Family History of Disease</label>
-                                <div class="d-flex">
-                                    <input type="radio" id="familyYes" name="familyHistory" class="btn-check" value="yes" required>
-                                    <label class="btn btn-outline-secondary" for="familyYes">Yes</label>
-                                    
-                                    <input type="radio" id="familyNo" name="familyHistory" class="btn-check" value="no" required>
-                                    <label class="btn btn-outline-secondary" for="familyNo">No</label>
-                                </div>
+                                <label for="glucose" class="form-label">Glucose</label>
+                                <input type="number" name="glucose" class="form-control" id="glucose" placeholder="Enter your glucose" required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Smoking</label>
@@ -110,19 +107,6 @@
                                 </div>
                             </div>
                             
-                            <div class="mb-3">
-                                <label class="form-label">Eating Patterns</label>
-                                <div class="d-flex">
-                                    <input type="radio" id="healthy" name="eatingPatterns" class="btn-check" value="healthy" required>
-                                    <label class="btn btn-outline-secondary" for="healthy">Healthy</label>
-                                    
-                                    <input type="radio" id="average" name="eatingPatterns" class="btn-check" value="average" required>
-                                    <label class="btn btn-outline-secondary" for="average">Average</label>
-                                    
-                                    <input type="radio" id="unhealthy" name="eatingPatterns" class="btn-check" value="unhealthy" required>
-                                    <label class="btn btn-outline-secondary" for="unhealthy">Unhealthy</label>
-                                </div>
-                            </div>
                             <center>
                                 <button type="submit" class="btn btn-primary">Check</button>
                             </center>

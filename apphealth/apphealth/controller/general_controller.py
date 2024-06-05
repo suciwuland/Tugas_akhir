@@ -31,11 +31,10 @@ def clasificationInsert(request):
     diastolic = request.POST.get('diastolic')
     heartRate = request.POST.get('heartRate')
     diabetes = request.POST.get('diabetes')
-    familyHistory = request.POST.get('familyHistory')
     smoking = request.POST.get('smoking')
     height = request.POST.get('height')
     weight = request.POST.get('weight')
-    eatingPatterns = request.POST.get('eatingPatterns')
+    glucose = request.POST.get('glucose')
     bmi = request.POST.get('bmi')
     bmiStatus = request.POST.get('bmiStatus')
    
@@ -53,7 +52,7 @@ def clasificationInsert(request):
         'Family History': [newFamilyHistory],
         'Smoking': [newSmoking],
         'Obesity': [obesity],
-        'Diet': [eatingPatterns.capitalize()],
+        'Glucose': [glucose],
         'BMI': [int(bmi)]
     }
     predict=clasificationPredict(newData)
@@ -67,13 +66,12 @@ def clasificationInsert(request):
         'diastolic': diastolic,
         'heartRate': heartRate,
         'diabetes': diabetes,
-        'familyHistory': familyHistory.capitalize(),
         'smoking': smoking.capitalize(),
         'height': height,
+        'glucose':glucose,
         'weight': weight,
         'bmi': bmi,
         'bmiStatus': bmiStatus,
-        'eatingPatterns': eatingPatterns.capitalize(),
         "prediction":stringPredict 
     }
 
