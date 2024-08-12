@@ -23,29 +23,41 @@
 </div>
 
 <div class="col-12 py-3">
+  <div class="card">
+      <div class="card-body">
+          <button type="button" class="btn btn-outline-primary me-2 mb-2" id="showTrainingData">Data Training</button>
+          <button type="button" class="btn btn-outline-primary mb-2" id="showTestingData">Data Testing</button>
+      </div>
+    </div>
+  </div>
+
+<div class="col-12"id="DatasetTable">
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
+              <h3>Dataset</h3>
                 <table class="table table-bordered table-hover" id="dataTablesId">
                     <thead class="table-dark" >
-                        <tr>
-                            <th>Age</th>
-                            <th>Sex</th>
-                            <th>Cholesterol</th>
-                            <th>Blood Pressure</th>
-                            <th>Heart Rate</th>
-                            <th>Diabetes</th>
-                            <th>Glucose</th>
-                            <th>Smoking</th>
-                            <th>Obesity</th>
-                            <th>BMI</th>
-                            <th>Heart Attack Risk</th>
-                            <th>Aksi</th>
-                        </tr>
+                      <tr>
+                        <th style="text-align: center;">No</th>
+                        <th style="text-align: center;">Umur <i style="font-size:12px">(Age)</i></th>
+                        <th style="text-align: center;">Jenis Kelamin <i style="font-size:12px">(Gender)</i></th>
+                        <th style="text-align: center;">Kadar Kolesterol <i style="font-size:12px">(Cholesterol)</i></th>
+                        <th style="text-align: center;">Tekanan Darah <i style="font-size:12px">(Blood Pressure)</i></th>
+                        <th style="text-align: center;">Detak Jantung <i style="font-size:12px">(Heart Rate)</i></th>
+                        <th style="text-align: center;">Diabetes</th>
+                        <th style="text-align: center;">Glukosa</th>
+                        <th style="text-align: center;">Perokok <i style="font-size:12px">(Smoker)</i></th>
+                        <th style="text-align: center;">Massa Indeks Tubuh (BMI)</th>
+                        <th style="text-align: center;">Status Obesitas <i style="font-size:12px">(Obesity)</i></th>
+                        <th style="text-align: center;">Risiko Penyakit Jantung</th>
+                        <th style="text-align: center;">Aksi</th>
+                    </tr>
                     </thead>
                     <tbody>
                        {% for data in dataset %}
                        <tr>
+                        <td>{{ forloop.counter0|add:1 }}</td> 
                         <td>{{ data.age }}</td>
                         <td>{{ data.sex }}</td>
                         <td>{{ data.cholesterol }}</td>
@@ -54,11 +66,11 @@
                         <td>{{ data.diabetes }}</td>
                         <td>{{ data.glucose }}</td>
                         <td>{{ data.smoking }}</td>
-                        <td>{{ data.obesity }}</td>
                         <td>{{ data.bmi }}</td>
+                        <td>{{ data.obesity }}</td>
                         <td>{{ data.heart_attack_risk }}</td>
                         <td>
-                          <a href="{% url 'dataset.edit' id=data.id_str %}" class="btn btn-sm btn-primary">Edit</a>
+                          <a href="{% url 'dataset.edit' id=data.id_str %}" class="btn btn-sm btn-primary mb-2">Edit</a>
                           <a href="{% url 'dataset.destroy' id=data.id_str %}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?');">Delete</a>
                                 
                          </td>
@@ -69,6 +81,111 @@
             </div>
         </div>
     </div>
+</div>
+
+  
+<div class="col-12" id="trainingDataTable"  style="display: none;"  >
+    <div class="card">
+        <div class="card-body" >
+          <div class="table-responsive" >
+            <h3>Data Training</h3>
+              <table class="table table-bordered table-hover" id="dataTrainingTable">
+                  <thead class="table-dark" >
+                    <tr>
+                      <th style="text-align: center;">No</th>
+                      <th style="text-align: center;">Umur <i style="font-size:12px">(Age)</i></th>
+                      <th style="text-align: center;">Jenis Kelamin <i style="font-size:12px">(Gender)</i></th>
+                      <th style="text-align: center;">Kadar Kolesterol <i style="font-size:12px">(Cholesterol)</i></th>
+                      <th style="text-align: center;">Tekanan Darah <i style="font-size:12px">(Blood Pressure)</i></th>
+                      <th style="text-align: center;">Detak Jantung <i style="font-size:12px">(Heart Rate)</i></th>
+                      <th style="text-align: center;">Diabetes</th>
+                      <th style="text-align: center;">Glukosa</th>
+                      <th style="text-align: center;">Perokok <i style="font-size:12px">(Smoker)</i></th>
+                      <th style="text-align: center;">Massa Indeks Tubuh (BMI)</th>
+                      <th style="text-align: center;">Status Obesitas <i style="font-size:12px">(Obesity)</i></th>
+                      <th style="text-align: center;">Risiko Penyakit Jantung</th>
+                      <th style="text-align: center;">Aksi</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                     {% for data in data_training %}
+                     <tr>
+                      <td>{{ forloop.counter0|add:1 }}</td> 
+                      <td>{{ data.age }}</td>
+                      <td>{{ data.sex }}</td>
+                      <td>{{ data.cholesterol }}</td>
+                      <td>{{ data.blood_pressure }}</td>
+                      <td>{{ data.heart_rate }}</td>
+                      <td>{{ data.diabetes }}</td>
+                      <td>{{ data.glucose }}</td>
+                      <td>{{ data.smoking }}</td>
+                      <td>{{ data.bmi }}</td>
+                      <td>{{ data.obesity }}</td>
+                      <td>{{ data.heart_attack_risk }}</td>
+                      <td>
+                        <a href="{% url 'dataset.edit' id=data.id_str %}" class="btn btn-sm btn-primary mb-2">Edit</a>
+                        <a href="{% url 'dataset.destroy' id=data.id_str %}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?');">Delete</a>
+                              
+                       </td>
+                      </tr>
+                     {% endfor %}
+                  </tbody>
+              </table>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="col-12" id="testingDataTable" style="display: none;">
+  <div class="card">
+      <div class="card-body">
+          <div class="table-responsive">
+            <h3>Data Testing</h3>
+              <table class="table table-bordered table-hover" id="dataTestingTable">
+                  <thead class="table-dark" >
+                    <tr>
+                      <th style="text-align: center;">No</th>
+                      <th style="text-align: center;">Umur <i style="font-size:12px">(Age)</i></th>
+                      <th style="text-align: center;">Jenis Kelamin <i style="font-size:12px">(Gender)</i></th>
+                      <th style="text-align: center;">Kadar Kolesterol <i style="font-size:12px">(Cholesterol)</i></th>
+                      <th style="text-align: center;">Tekanan Darah <i style="font-size:12px">(Blood Pressure)</i></th>
+                      <th style="text-align: center;">Detak Jantung <i style="font-size:12px">(Heart Rate)</i></th>
+                      <th style="text-align: center;">Diabetes</th>
+                      <th style="text-align: center;">Glukosa</th>
+                      <th style="text-align: center;">Perokok <i style="font-size:12px">(Smoker)</i></th>
+                      <th style="text-align: center;">Massa Indeks Tubuh (BMI)</th>
+                      <th style="text-align: center;">Status Obesitas <i style="font-size:12px">(Obesity)</i></th>
+                      <th style="text-align: center;">Risiko Penyakit Jantung</th>
+                      <th style="text-align: center;">Aksi</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                     {% for data in data_testing %}
+                     <tr>
+                      <td>{{ forloop.counter0|add:1 }}</td> 
+                      <td>{{ data.age }}</td>
+                      <td>{{ data.sex }}</td>
+                      <td>{{ data.cholesterol }}</td>
+                      <td>{{ data.blood_pressure }}</td>
+                      <td>{{ data.heart_rate }}</td>
+                      <td>{{ data.diabetes }}</td>
+                      <td>{{ data.glucose }}</td>
+                      <td>{{ data.smoking }}</td>
+                      <td>{{ data.bmi }}</td>
+                      <td>{{ data.obesity }}</td>
+                      <td>{{ data.heart_attack_risk }}</td>
+                      <td>
+                        <a href="{% url 'dataset.edit' id=data.id_str %}" class="btn btn-sm btn-primary mb-2">Edit</a>
+                        <a href="{% url 'dataset.destroy' id=data.id_str %}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?');">Delete</a>
+                              
+                       </td>
+                      </tr>
+                     {% endfor %}
+                  </tbody>
+              </table>
+          </div>
+      </div>
+  </div>
 </div>
 
 <div class="modal fade" id="importDatasetModal"  tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
@@ -101,9 +218,47 @@
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
 <script>
-
+  document.addEventListener('DOMContentLoaded', function () {
+    const showTrainingDataBtn = document.getElementById('showTrainingData');
+    const showTestingDataBtn = document.getElementById('showTestingData');
+    const trainingDataTable = document.getElementById('trainingDataTable');
+    const testingDataTable = document.getElementById('testingDataTable');
+    const datasetTable = document.getElementById('DatasetTable');
+  
+    showTrainingDataBtn.addEventListener('click', function () {
+      if (trainingDataTable.style.display === 'none') {
+        trainingDataTable.style.display = 'block';
+        testingDataTable.style.display = 'none';
+        datasetTable.style.display = 'none';
+        showTrainingDataBtn.classList.add('active');
+        showTestingDataBtn.classList.remove('active');
+      } else {
+        trainingDataTable.style.display = 'none';
+        datasetTable.style.display = 'block';
+        showTrainingDataBtn.classList.remove('active');
+      }
+    });
+  
+    showTestingDataBtn.addEventListener('click', function () {
+      if (testingDataTable.style.display === 'none') {
+        testingDataTable.style.display = 'block';
+        trainingDataTable.style.display = 'none';
+        datasetTable.style.display = 'none';
+        showTestingDataBtn.classList.add('active');
+        showTrainingDataBtn.classList.remove('active');
+      } else {
+        testingDataTable.style.display = 'none';
+        datasetTable.style.display = 'block';
+        showTestingDataBtn.classList.remove('active');
+      }
+    });
+  });
+  
+  
 $(document).ready( function () {
     $('#dataTablesId').DataTable();
+    $('#dataTrainingTable').DataTable();
+    $('#dataTestingTable').DataTable();
 } );
 </script>
 {% endblock %}

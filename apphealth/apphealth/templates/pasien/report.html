@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Data Pasien</title>
+    <style>
+        @page {
+            size: A4 landscape;
+            margin: 20px;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+            font-size: 12px;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <h1>Laporan Data Pasien</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Umur (Age)</th>
+                <th>Jenis Kelamin (Gender)</th>
+                <th>Kadar Kolesterol (Cholesterol)</th>
+                <th>Tekanan Darah (Blood Pressure)</th>
+                <th>Detak Jantung (Heart Rate)</th>
+                <th>Diabetes</th>
+                <th>Glukosa (Glucose)</th>
+                <th>Perokok (Smoker)</th>
+                <th>Massa Indeks Tubuh (BMI)</th>
+                <th>Status Obesitas (Obesity)</th>
+                <th>Hasil Klasifikasi</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for data in datapasien %}
+            <tr>
+                <td>{{ forloop.counter0|add:1 }}</td>
+                <td>{{ data.age }}</td>
+                <td>{{ data.gender }}</td>
+                <td>{{ data.cholesterol }}</td>
+                <td>{{ data.systolic }}/{{ data.diastolic }}</td>
+                <td>{{ data.heartRate }}</td>
+                <td>{{ data.diabetes }}</td>
+                <td>{{ data.glucose }}</td>
+                <td>{{ data.smoking }}</td>
+                <td>{{ data.bmi }}</td>
+                <td>{{ data.bmiStatus }}</td>
+                <td>{{ data.prediction }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

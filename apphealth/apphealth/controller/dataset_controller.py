@@ -2,12 +2,14 @@ from django.shortcuts import render, redirect
 from django.views.decorators.http import require_GET
 from django.contrib import messages
 import pandas as pd
-from apphealth.models.model_init import DataSetCollection
+from apphealth.models.model_init import DataSetCollection, DataTestingCollection, DataTrainingCollection
 from apphealth.decorators import login_required
 from bson import ObjectId
 
 
 collectionDataset = DataSetCollection()
+collectionData_Training = DataTrainingCollection()
+collectionData_Testing = DataTestingCollection()
 
 @login_required
 @require_GET
@@ -15,10 +17,36 @@ def index(request):
     dataset = list(collectionDataset.find())
     for item in dataset:
         item['id_str'] = str(item['_id'])
+    
+    data_training = list(collectionData_Training.find())
+    for item in data_training:
+        item['id_str'] = str(item['_id'])
         
+    data_testing = list(collectionData_Testing.find())
+    for item in data_testing:
+        item['id_str'] = str(item['_id'])
+    
+    existing_ids = set(item['_id'] for item in dataset)
+
+    # Menggabungkan data training ke dalam dataset
+    for item in data_training:
+        if item['_id'] not in existing_ids:
+            collectionDataset.insert_one(item)
+            existing_ids.add(item['_id'])
+
+    # Menggabungkan data testing ke dalam dataset
+    for item in data_testing:
+        if item['_id'] not in existing_ids:
+            collectionDataset.insert_one(item)
+            existing_ids.add(item['_id'])
+
     return render(request, 'dataset/index.html',{
-        'dataset':dataset
+        'dataset':dataset,  
+        'data_testing':data_testing,
+        'data_training':data_training,
+        
     })
+    
 
 def create(request):
     return render(request, 'dataset/create.html')
@@ -32,7 +60,7 @@ def edit(request, id):
     dataset['systolic'] = blood_pressure[0]
     dataset['diastolic'] = blood_pressure[1]
     dataset['id_str'] = str(dataset['_id'])
-
+        
 
     return render(request, 'dataset/edit.html', {
         'dataset': dataset
@@ -47,14 +75,14 @@ def store(request):
     heartRate = request.POST.get('heartRate')
     bmi = request.POST.get('bmi')
     bmiStatus = request.POST.get('bmiStatus')
-    heartAttackRisk = request.POST.get('heart_attack_risk')
+    heartRisk = request.POST.get('heart_attack_risk')
     glucose = request.POST.get('glucose')
 
 
     newDiabetes = 1 if request.POST.get('diabetes') == 'yes' else 0
     newSmoking = 1 if request.POST.get('smoking') == 'yes' else 0
     obesity = int(request.POST.get('obesity'))
-    heartAttackRisk = 'yes' if heartAttackRisk == "1" else 'No'
+    heartRisk = 'yes' if heartRisk == "1" else 'No'
     
     newData = {
         'age': age,
@@ -67,7 +95,7 @@ def store(request):
         'obesity': obesity,
         'bmi': bmi,
         'glucose': glucose,
-        'heart_attack_risk': heartAttackRisk
+        'heart_attack_risk': heartRisk
     }
 
     collectionDataset.insert_one(newData)
@@ -88,15 +116,13 @@ def updated(request, id):
     heartRate = request.POST.get('heartRate')
     bmi = request.POST.get('bmi')
     bmiStatus = request.POST.get('bmiStatus')
-    heartAttackRisk = request.POST.get('heart_attack_risk')
+    heartRisk = request.POST.get('heart_attack_risk')
     glucose = request.POST.get('glucose')
-
-
 
     newDiabetes = 1 if request.POST.get('diabetes') == 'yes' else 0
     newSmoking = 1 if request.POST.get('smoking') == 'yes' else 0
     obesity = int(request.POST.get('obesity'))
-    heartAttackRisk = 'yes' if heartAttackRisk == "1" else 'No'
+    heartRisk = 'yes' if heartRisk == "1" else 'No'
 
     data = {
         'age': age,
@@ -109,11 +135,14 @@ def updated(request, id):
         'obesity': obesity,
         'bmi': bmi,
         'glucose': glucose,
-        'heart_attack_risk': heartAttackRisk
+        'heart_attack_risk': heartRisk
     }
-    collectionDataset.update_one({'_id': ObjectId(id)}, {'$set': data})
-    messages.success(request, 'Dataset berhasil diperbarui')
-    return redirect('dataset.index')
+    if dataset != data:
+        collectionDataset.update_one({'_id': ObjectId(id)}, {'$set': data})
+        messages.success(request, 'Dataset berhasil diperbarui')
+        return redirect('dataset.index')
+    else: 
+        return redirect('dataset.index')
 
 def destroy(request, id):
     dataset = collectionDataset.find_one({'_id': ObjectId(id)})
@@ -177,7 +206,7 @@ def importDataExcel(request):
             'smoking': smoking,
             'obesity': obesity,
             'glucose': glucose,
-            'bmi': float(bmi),
+            'bmi': bmi,
             'heart_attack_risk': heart_attack_risk
         })
 

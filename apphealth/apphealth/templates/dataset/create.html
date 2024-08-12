@@ -21,91 +21,95 @@
         <div class="card-body">
           <form  action="{% url 'dataset.store' %}" method="post" >
             {% csrf_token %}
-            <div class="mb-3">
-                <label for="age" class="form-label">Age</label>
-                <input type="number" name="age" class="form-control" id="age" placeholder="Enter your age" required>
+            
+            <div class="mb-2">
+                <label for="age" class="form-label">Umur <i>(Age)</i></label>
+                <input type="number" name="age" class="form-control" id="age" placeholder="Masukkan Umur" required>
             </div>
-            <div class="mb-3">
-                <label class="form-label">Gender</label>
-                <div class="d-flex">
+            <div class="mb-2">
+                <label class="form-label me-3">Jenis Kelamin <i>(Gender)</i> </label>
+                <div style="display:inline-flex">
                     <input type="radio" id="male" name="gender" class="btn-check" value="male" required>
-                    <label class="btn btn-outline-secondary" for="male">Male</label>
+                    <label class="btn btn-outline-secondary me-2" for="male">Pria</label>
                     
                     <input type="radio" id="female" name="gender" class="btn-check" value="female" required>
-                    <label class="btn btn-outline-secondary" for="female">Female</label>
+                    <label class="btn btn-outline-secondary" for="female">Wanita</label>
                 </div>
             </div>
-            <div class="mb-3">
-                <label for="cholesterol" class="form-label">Cholesterol Levels</label>
-                <input type="number" class="form-control" name="cholesterol" id="cholesterol" placeholder="Enter your cholesterol levels" required>
+            <div class="mb-2">
+                <label for="cholesterol" class="form-label">Kadar Kolesterol <i>(Cholesterol Levels)</i></label>
+                <input type="number" class="form-control" name="cholesterol" id="cholesterol" placeholder="Masukkan Kadar Kolesterol" required>
             </div>
-            <div class="mb-3">
-                <label for="glucose" class="form-label">Glucose</label>
+            <div class="mb-2">
+                <label for="glucose" class="form-label">Glukosa <i>(Glucose)</i></label>
                 <input type="number" class="form-control" name="glucose" id="glucose"  placeholder="Enter your glucose " required>
             </div>
-            <div class="row g-2 mb-3">
+            <div class="row g-2 mb-2">
                 <div class="col">
-                    <label for="systolic" class="form-label">Blood Pressure Systolic</label>
+                    <label for="systolic" class="form-label">Tekanan Darah <i>(Blood Pressure)</i> Sistolik</label>
                     <input type="number" name="systolic" class="form-control" id="systolic" placeholder="Systolic" required>
                 </div>
                 <div class="col">
-                    <label for="diastolic" class="form-label">Blood Pressure Diastolic</label>
+                    <label for="diastolic" class="form-label">Tekanan Darah <i>(Blood Pressure)</i> Diastolik</label>
                     <input type="number" name="diastolic" class="form-control" id="diastolic" placeholder="Diastolic" required>
                 </div>
             </div>
-            <div class="mb-3">
-                <label for="heartRate" class="form-label">Heart Rate</label>
+            <div class="mb-2">
+                <label for="heartRate" class="form-label">Detak Jantung <i>(Heart Rate)</i></label>
                 <input type="number" name="heartRate" class="form-control" id="heartRate" placeholder="Enter your heart rate" required>
             </div>
-            <div class="mb-3">
-                <label for="heartRate" class="form-label">BMI</label>
+            <div class="mb-2">
+                <label for="bmi" class="form-label">Indeks Massa Tubuh <i>(Body Massa Index)</i></label>
                 <input type="number" name="bmi" class="form-control" id="bmi" placeholder="Enter your BMI"  required>
             </div>
-            <div class="mb-3">
-                <label class="form-label">Diabetes</label>
-                <div class="d-flex">
+            <div class="mb-2">
+                <label class="form-label me-3">Diabetes</label>
+                <div style="display:inline-flex">
                     <input type="radio" id="diabetesYes" name="diabetes" class="btn-check" value="yes" required>
-                    <label class="btn btn-outline-secondary" for="diabetesYes">Yes</label>
+                    <label class="btn btn-outline-secondary me-2" for="diabetesYes">Ya</label>
                     
                     <input type="radio" id="diabetesNo" name="diabetes" class="btn-check" value="no" required>
-                    <label class="btn btn-outline-secondary" for="diabetesNo">No</label>
+                    <label class="btn btn-outline-secondary" for="diabetesNo">Tidak</label>
                 </div>
             </div>
-            <div class="mb-3">
-                <label class="form-label">Smoking</label>
-                <div class="d-flex">
+            <div class="mb-2">
+                <label class="form-label me-3">Merokok<i>(Smoking)</i></label>
+                <div style="display:inline-flex">
                     <input type="radio" id="smokingYes" name="smoking" class="btn-check" value="yes" required>
-                    <label class="btn btn-outline-secondary" for="smokingYes">Yes</label>
+                    <label class="btn btn-outline-secondary me-2" for="smokingYes">Ya</label>
                     
                     <input type="radio" id="smokingNo" name="smoking" class="btn-check" value="no" required>
-                    <label class="btn btn-outline-secondary" for="smokingNo">No</label>
+                    <label class="btn btn-outline-secondary" for="smokingNo">Tidak</label>
                 </div>
             </div>
 
-            <div class="mb-3">
-                <label class="form-label">Status Obesitas</label>
-                <div class="d-flex">
+            <div class="mb-2">
+                <label class="form-label me-3">Status Obesitas <i>(Obesity)</i></label>
+                <div style="display:inline-flex">
                     <input type="radio" id="status_obesitas_yes" name="obesity" class="btn-check" value="1" required>
-                    <label class="btn btn-outline-secondary" for="status_obesitas_yes">Yes</label>
+                    <label class="btn btn-outline-secondary me-2" for="status_obesitas_yes">Ya</label>
                     
                     <input type="radio" id="status_obesitas_no" name="obesity" class="btn-check" value="0" required>
-                    <label class="btn btn-outline-secondary" for="status_obesitas_no">No</label>
+                    <label class="btn btn-outline-secondary" for="status_obesitas_no">Tidak</label>
                 </div>
             </div>
       
-            <div class="mb-3">
-                <label class="form-label">Heart Attack Risk</label>
-                <div class="d-flex">
+            <div class="mb-2">
+                <label class="form-label me-3">Risiko Penyakit Jantung <i>(Heart Risk)</i></label>
+                <div style="display:inline-flex">
                     <input type="radio" id="risk" name="heart_attack_risk" class="btn-check" value="1" required>
-                    <label class="btn btn-outline-secondary" for="risk">Risk</label>
+                    <label class="btn btn-outline-secondary me-2" for="risk">Ya</label>
                     
                     <input type="radio" id="no_risk" name="heart_attack_risk" class="btn-check" value="0" required>
-                    <label class="btn btn-outline-secondary" for="no_risk">No Risk</label>
+                    <label class="btn btn-outline-secondary" for="no_risk">Tidak</label>
                 </div>
             </div>
 
             <center>
-                <button type="submit" class="btn btn-primary">Simpan</button>
+                <div style="display:inline-flex">
+                <button type="back" class="btn btn-secondary me-4" onclick="history.back();">Kembali</button> 
+                <button type="submit" class="btn btn-primary me-2">Simpan</button>
+                </div>
             </center>
         </form>
         </div>

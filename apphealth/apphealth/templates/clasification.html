@@ -6,16 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Heart Disease Risk Check</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <link href="{% static 'style.css'%} " rel="stylesheet">
 </head>
 <body>
-    <div class="container-fluid  p-4 text-white" style="background-color: #A0153E;" >
-        <h1 class="text-center ">Heart Disease Risk Check</h1>
+    <div class="container-fluid  p-2 text-white" style="background-color: #A0153E;" >
+        <a class="navbar-brand" href="{% url "index-klasifikasi" %}">
+            <i class="bi bi-arrow-left" style="font-size: 28px;"></i>
+          </a>
+        <h2 class="text-center "> Klasifikasi Risiko Penyakit Jantung dengan Metode SVM
+        </h2>
     </div>
-    <div class="container p-4 my-5 ">
+    <div class="container p-3">
         
         <div class="row">
-            <div class="col-8 mx-auto">
+            <div class="col-7 mx-auto">
                 <div class="card">
                     <div class="card-header text-center">
                         <h2 class="h2 mb-3">Patient Information</h2>
@@ -24,27 +29,27 @@
                     <div class="card-body">
                         <form  action="{% url 'klasifikasi.result' %}" method="post" >
                             {% csrf_token %}
-                            <div class="mb-3">
-                                <label for="age" class="form-label">Age</label>
-                                <input type="number" name="age" class="form-control" id="age" placeholder="Enter your age" required>
+                            <div class="mb-2">
+                                <label for="age" class="form-label">1. Umur <i>(Age)</i></label>
+                                <input type="number" name="age" class="form-control" id="age" placeholder="Masukkan Umur" required>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label">Gender</label>
-                                <div class="d-flex">
+                            <div class="mb-2">
+                                <label class="form-label me-3">2. Jenis Kelamin <i>(Gender)</i> </label>
+                                <div style="display:inline-flex">
                                     <input type="radio" id="male" name="gender" class="btn-check" value="male" required>
-                                    <label class="btn btn-outline-secondary" for="male">Male</label>
+                                    <label class="btn btn-outline-secondary me-2" for="male">Pria</label>
                                     
                                     <input type="radio" id="female" name="gender" class="btn-check" value="female" required>
-                                    <label class="btn btn-outline-secondary" for="female">Female</label>
+                                    <label class="btn btn-outline-secondary" for="female">Wanita</label>
                                 </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="cholesterol" class="form-label">Cholesterol Levels</label>
-                                <input type="number" class="form-control" name="cholesterol" id="cholesterol" placeholder="Enter your cholesterol levels" required>
+                            <div class="mb-2">
+                                <label for="cholesterol" class="form-label">3. Kadar Kolesterol <i>(Cholesterol Levels)</i></label>
+                                <input type="number" class="form-control" name="cholesterol" id="cholesterol" placeholder="Masukkan Kadar Kolesterol" required>
                             </div>
-                            <div class="row g-2 mb-3">
-                                <div class="col-2">
-                                    <label for="systolic" class="form-label mt-5">Blood Pressure</label>
+                            <div class="row mb-2">
+                                <div class="col-3">
+                                    <label for="systolic" class="form-label mt-3">4. Tekanan Darah <i>(Blood Pressure)</i></label>
                                 </div>
                                 <div class="col">
                                     <label for="systolic" class="form-label">Systolic</label>
@@ -55,104 +60,108 @@
                                     <input type="number" name="diastolic" class="form-control" id="diastolic" placeholder="Diastolic" required>
                                 </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="heartRate" class="form-label">Heart Rate</label>
-                                <input type="number" name="heartRate" class="form-control" id="heartRate" placeholder="Enter your heart rate" required>
+                            <div class="mb-2">
+                                <label for="heartRate" class="form-label">5. Detak Jantung <i>(Heart Rate)</i></label>
+                                <input type="number" name="heartRate" class="form-control" id="heartRate" placeholder="Masukkan Detak Jantung per Menit" required>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label">Diabetes</label>
-                                <div class="d-flex">
+                            <div class="mb-2">
+                                <label class="form-label me-3">6. Diabetes</label>
+                                <div style="display:inline-flex">
                                     <input type="radio" id="diabetesYes" name="diabetes" class="btn-check" value="yes" required>
-                                    <label class="btn btn-outline-secondary" for="diabetesYes">Yes</label>
+                                    <label class="btn btn-outline-secondary me-2" for="diabetesYes">Ya</label>
                                     
                                     <input type="radio" id="diabetesNo" name="diabetes" class="btn-check" value="no" required>
-                                    <label class="btn btn-outline-secondary" for="diabetesNo">No</label>
+                                    <label class="btn btn-outline-secondary" for="diabetesNo">Tidak</label>
                                 </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="glucose" class="form-label">Glucose</label>
-                                <input type="number" name="glucose" class="form-control" id="glucose" placeholder="Enter your glucose" required>
+                            <div class="mb-2">
+                                <label for="glucose" class="form-label">7. Glucosa </label>
+                                <input type="number" name="glucose" class="form-control" id="glucose" placeholder="Masukkan Kadar Gula dalam darah" required>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label">Smoking</label>
-                                <div class="d-flex">
+                            <div class="mb-2">
+                                <label class="form-label me-3">8. Perokok <i>(Smoker)</i></label>
+                                <div style="display:inline-flex">
                                     <input type="radio" id="smokingYes" name="smoking" class="btn-check" value="yes" required>
-                                    <label class="btn btn-outline-secondary" for="smokingYes">Yes</label>
+                                    <label class="btn btn-outline-secondary me-2" for="smokingYes">Ya</label>
                                     
                                     <input type="radio" id="smokingNo" name="smoking" class="btn-check" value="no" required>
-                                    <label class="btn btn-outline-secondary" for="smokingNo">No</label>
+                                    <label class="btn btn-outline-secondary" for="smokingNo">Tidak</label>
                                 </div>
                             </div>
-                            <div class="d-flex justify-content-between align-items-between r mb-3">
-                                <div class="mb-3 w-100">
-                                    <label for="height" class="form-label">Height</label>
-                                    <input type="number" class="form-control" min="0" id="height" name="height" onchange="calculateBMI()" placeholder="Enter your height" required>
+                            <div class="d-flex justify-content-between align-items-between r mb-2">
+                                <div class="mb-4 w-100 me-4">
+                                    <label for="height" class="form-label">9. Tinggi Badan <i>(Height)</i></label>
+                                    <input type="number" class="form-control" min="0" id="height" name="height" onchange="calculateBMI()" placeholder="Masukkan Tinggi Badan" required>
                                 </div>
-                                <div class="mb-3 w-100">
-                                    <label for="weight" class="form-label">Weight</label>
-                                    <input type="number" class="form-control" min="0" id="weight" name="weight" onchange="calculateBMI()" placeholder="Enter your weight" required>
+                                <div class="mb-2 w-100">
+                                    <label for="weight" class="form-label">10. Berat Badan <i>(Weight)</i></label>
+                                    <input type="number" class="form-control" min="0" id="weight" name="weight" onchange="calculateBMI()" placeholder="Masukkan Berat Badan" required>
                                 </div>
                             </div>
-                            
-                            <div class="d-flex justify-content-between align-items-between text-center mb-3">
+                    
+                            <div class="d-flex justify-content-between align-items-between text-center mb-2">
                                 <div class="px-5 w-100">
-                                    <h3 class="mb-0">BMI</h3>
+                                    <h3 class="mb-0">Indeks Massa Tubuh</h3>
+                                    <i>Body Mass Index (BMI)</i>
                                     <p class="caption" id="bmiResult">0</p>
                                     <input type="hidden" name="bmi" id="bmiHidden">
                                 </div>
                                 <div class="px-5 w-100">
-                                    <h3 class="mb-0">Obesity</h3>
+                                    <h3 class="mb-0">Status Obesitas</h3>
+                                    <i>Obesity</i>
                                     <p class="caption" id="bmiStatus">-</p>
                                     <input type="hidden" name="bmiStatus" id="bmiStatusHidden">
                                 </div>
                             </div>
-                            
+                    
                             <center>
                                 <button type="submit" class="btn btn-primary">Check</button>
                             </center>
                         </form>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        function calculateBMI() {
-            // Ambil nilai tinggi dan berat dari input
-            var height = document.getElementById('height').value;
-            var weight = document.getElementById('weight').value;
-
-            // Konversi tinggi dari cm ke meter
-            var heightInMeters = height / 100;
-
-            // Hitung BMI
-            var bmi = weight / (heightInMeters * heightInMeters);
-
-            // Tampilkan hasil BMI di div
-            var bmiStatusDiv = document.getElementById('bmiStatus');
-            var status = checkObesity(bmi);
-
-            var bmiResultDiv = document.getElementById('bmiResult');
-
-            bmiResultDiv.innerHTML = bmi.toFixed(0);
-            bmiStatusDiv.innerHTML = weight == 0 || height == 0 ? '-':status
-            document.getElementById('bmiHidden').value = bmi.toFixed(0);
-            document.getElementById('bmiStatusHidden').value = weight == 0 || height == 0 ? '-':status
-        }
-
-        function checkObesity(bmi) {
-            if (bmi < 18.5) {
-                return "Underweight";
-            } else if (bmi >= 18.5 && bmi < 24.9) {
-                return "Normal weight";
-            } else if (bmi >= 25 && bmi < 29.9) {
-                return "Overweight";
-            } else {
-                return "Obese";
-            }
-        }
+                    
+                        <script>
+                            function calculateBMI() {
+                                // Ambil nilai tinggi dan berat dari input
+                                var height = parseFloat(document.getElementById('height').value);
+                                var weight = parseFloat(document.getElementById('weight').value);
+                    
+                                // Validasi input
+                                if (isNaN(height) || isNaN(weight) || height === 0 || weight === 0) {
+                                    document.getElementById('bmiResult').innerHTML = '0';
+                                    document.getElementById('bmiStatus').innerHTML = '-';
+                                    document.getElementById('bmiHidden').value = '0';
+                                    document.getElementById('bmiStatusHidden').value = '-';
+                                    return;
+                                }
+                    
+                                // Konversi tinggi dari cm ke meter
+                                var heightInMeters = height / 100;
+                    
+                                // Hitung BMI
+                                var bmi = weight / (heightInMeters ** 2);
+                    
+                                // Tampilkan hasil BMI di div
+                                var bmiResultDiv = document.getElementById('bmiResult');
+                                var bmiStatusDiv = document.getElementById('bmiStatus');
+                                var status = checkObesity(bmi);
+                    
+                                bmiResultDiv.innerHTML = bmi.toFixed(1);
+                                bmiStatusDiv.innerHTML = status;
+                                document.getElementById('bmiHidden').value = bmi.toFixed(1);
+                                document.getElementById('bmiStatusHidden').value = status;
+                            }
+                    
+                            function checkObesity(bmi) {
+                                if (bmi < 18.5) {
+                                    return "Underweight";
+                                } else if (bmi >= 18.5 && bmi < 24.9) {
+                                    return "Normal weight";
+                                } else if (bmi >= 25 && bmi < 29.9) {
+                                    return "Overweight";
+                                } else {
+                                    return "Obese";
+                                }
+                            }
     </script>
 </body>
 </html>

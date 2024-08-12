@@ -9,82 +9,105 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <link href="{% static 'style.css' %}" rel="stylesheet">
+    
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #A0153E">
         <div class="container-fluid">
-            <!-- Brand with icon -->
-            <a class="navbar-brand" href="#">
-                <i class="bi bi-heart-fill text-danger"></i> Heart Disease Risk Check System
+            <a class="navbar-brand" href={% url "index-klasifikasi" %}>
+                Klasifikasi Risiko Penyakit Jantung dengan Metode SVM
             </a>
-            <!-- Toggler/collapsibe Button -->
 
         </div>
     </nav>
     <div class="container-fluid">
         <div class="row py-4">
             <div class="col-12 text-center">
-                <h2>Patient Details</h2>
+                <h2>Informasi Klinis Pasien</h2>
+                <h4>Pasient Information</h4>
             </div>
             <div class="col-12 d-flex justify-content-between mt-4 px-4">
                 <div class="d-flex flex-column align-items-center">
-                    <img src="{% static 'img/1.png' %}" alt="Placeholder Image">
-                    <span class="fw-bold mt-2">Age</span>
-                    <span class="text-muted">{{ age }}</span>
+                    <img src="{% static 'img/user.png' %}" alt="Age Image">
+                    <span class="fw-bold mt-2" style="font-size:20px">Umur</span>
+                    <span class="fw-bold"><i>(Age)</i></span>
+                    <span class="text-muted" style="font-size:23px">{{ age }}</span>
                 </div>
                 <div class="d-flex flex-column align-items-center">
-                    <img src="{% static 'img/2.png' %}" alt="Placeholder Image">
-                    <span class="fw-bold mt-2">Gender</span>
-                    <span class="text-muted">{{gender }}</span>
+                    <img id="genderImage" src="{% static 'img/male.png' %}" alt="Gender Image">
+                    <span class="fw-bold mt-2" style="font-size:20px">Jenis Kelamin</span>
+                    <span class="fw-bold"><i>(Gender)</i></span>
+                    <span id="genderText" class="text-muted" style="font-size:23px">{{ gender }}</span>
                 </div>
                 <div class="d-flex flex-column align-items-center">
-                    <img src="{% static 'img/3.png' %}" alt="Placeholder Image">
-                    <span class="fw-bold mt-2">Cholesterol</span>
-                    <span class="text-muted">{{ cholesterol  }} mg/dL</span>
+                    <img src="{% static 'img/cholesterol.png' %}" alt="Cholesterol Image">
+                    <span class="fw-bold mt-2" style="font-size:20px">Kadar Kolesterol</span>
+                    <span class="fw-bold"><i>(Cholesterol Levels)</i></span>
+                    <span class="text-muted" style="font-size:23px">{{ cholesterol  }} mg/dL</span>
                 </div>
                 <div class="d-flex flex-column align-items-center">
-                    <img src="{% static 'img/4.png' %}" alt="Placeholder Image">
-                    <span class="fw-bold mt-2">Blood Pressure</span>
-                    <span class="text-muted">{{ systolic }}/{{ diastolic }} mmHg</span>
+                    <img src="{% static 'img/blood-pressure.png' %}" alt="BP Image">
+                    <span class="fw-bold mt-2" style="font-size:20px">Tekanan Darah</span>
+                    <span class="fw-bold"><i>(Blood Pressure)</i></span>
+                    <span class="text-muted" style="font-size:23px">{{ systolic }}/{{ diastolic }} mmHg</span>
                 </div>
                 <div class="d-flex flex-column align-items-center">
-                    <img src="{% static 'img/5.png' %}" alt="Placeholder Image">
-                    <span class="fw-bold mt-2">Heart Rate</span>
-                    <span class="text-muted">{{ heartRate }} bpm</span>
+                    <img src="{% static 'img/heart_rate.png' %}" alt="HeartRate Image">
+                    <span class="fw-bold mt-2" style="font-size:20px">Detak Jantung</span>
+                    <span class="fw-bold"><i>(Heart Rate)</i></span>
+                    <span class="text-muted" style="font-size:23px">{{ heartRate }} bpm</span>
                 </div>
                 <div class="d-flex flex-column align-items-center">
-                    <img src="{% static 'img/9.png' %}" alt="Placeholder Image">
-                    <span class="fw-bold mt-2">Glucose</span>
-                    <span class="text-muted">{{ glucose }}</span>
+                    <img src="{% static 'img/glucose.png' %}" alt="Glucose Image">
+                    <span class="fw-bold mt-2" style="font-size:20px">Glukosa</span>
+                    <span class="fw-bold"><i>(Glucose)</i></span>
+                    <span class="text-muted" style="font-size:23px">{{ glucose }}</span>
                 </div>
                 <div class="d-flex flex-column align-items-center">
-                    <img src="{% static 'img/7.png' %}" alt="Placeholder Image">
-                    <span class="fw-bold mt-2">Smoking</span>
-                    <span class="text-muted">{{  smoking }}</span>
+                    <img src="{% static 'img/cigarrete.png' %}" alt="Smoker Image">
+                    <span class="fw-bold mt-2" style="font-size:20px">Perokok</span>
+                    <span class="fw-bold"><i>(Smoker)</i></span>
+                    <span class="text-muted" style="font-size:23px">{{  smoking }}</span>
                 </div>
                 <div class="d-flex flex-column align-items-center">
-                    <img src="{% static 'img/8.png' %}" alt="Placeholder Image">
-                    <span class="fw-bold mt-2">Body Mass Index</span>
-                    <span class="text-muted">{{bmi }}</span>
+                    <img src="{% static 'img/bmi.png' %}" alt="BMI Image">
+                    <span class="fw-bold mt-2" style="font-size:20px">Massa Indeks Tubuh</span>
+                    <span class="fw-bold"><i>(Body Massa Index)</i></span>
+                    <span class="text-muted" style="font-size:23px">{{bmi }}</span>
+                </div>
+                <div class="d-flex flex-column align-items-center">
+                    <img src="{% static 'img/obesity.png' %}" alt="Obesity Image">
+                    <span class="fw-bold mt-2" style="font-size:20px">Status Obesitas</span>
+                    <span class="fw-bold"><i>(Obesity)</i></span>
+                    <span class="text-muted" style="font-size:23px">{{ bmiStatus }}</span>
                 </div>
         
                 
             </div>
             <div class="col-12 pt-5 my-3">
                 <center>
-                    <h2>Risk Heart Disease</h2>
-                    <div class="d-flex flex-column align-items-center my-5">
-                        <img src="{% static 'img/6.png' %}" alt="Placeholder Image">
-                        <span class="text-muted mt-2">Results</span>
-                        <span class="fw-bold h3 ">{{ prediction  }}  of Heart Disease</span>
+                    <h2>Hasil Klasifikasi</h2>
+                    <span class="text-muted mt-2">Results</span>
+                    <div class="d-flex flex-column align-items-center my-3">
+                        <img src="{% static 'img/warning.png' %}" id="predictionImage" alt="Result Image">
+                        <span class="fw-bold h3 my-2" id="predictionValue">{{ prediction }}</span>
+                        <span class="fw h3 my-2" > {{ prediction }}  of Heart Disease</span>
                     </div>
+                    <a href="{% url 'generate_pdf' id=id %}"  class="btn btn-primary">Unduh Laporan PDF</a>
                 </center>
             </div>
         </div>
+        <center>
+            <div class="card">
+                <div class="card-text">
+            <div id="suggestionCard" class="col-10 my-2 d-flex justify-content-center">
+            </div>
+            </div></div>
+        </center>
     </div>
-    <div class="container">
-        <h2>Actions to </h2>
+    <div class="container my-5">
+        <h2>Informasi Terkait Kesehatan Jantung</h2>
         <div class="row py-3">
             <div class="col-4 my-2">
                 <!-- Card wrapped in an anchor tag -->
@@ -99,6 +122,30 @@
                 </a>
             </div>
 
+            <div class="col-4 my-2">
+                <!-- Card wrapped in an anchor tag -->
+                <a href="https://www.halodoc.com/artikel/cegah-serangan-penyakit-jantung-dengan-kebiasaan-ini" class="text-decoration-none">
+                    <div class="card">
+                        <img src="https://d324bm9stwnv8c.cloudfront.net/artikel/20180530081132.178-2097746932.jpg" width="286" height="180" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Cegah Serangan Penyakit Jantung dengan Kebiasaan Ini</h5>
+                            <p class="card-text">Meskipun berisiko mengalami penyakit jantung turunan, kamu bisa melakukan pencegahan..</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-4 my-2">
+                <!-- Card wrapped in an anchor tag -->
+                <a href="https://yankes.kemkes.go.id/view_artikel/3220/olahraga-dan-penurunan-risiko-gagal-jantung-pada-penderita-depresi-dan-cemas" class="text-decoration-none">
+                    <div class="card">
+                        <img src="https://yankes.kemkes.go.id/img/bg-img/gambarartikel_1709713590_641110.jpg" width="286" height="180" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Olahraga dan Penurunan Risiko Gagal Jantung pada Penderita Depresi dan Cemas</h5>
+                            <p class="card-text"></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
             <div class="col-4 my-2">
                 <!-- Card wrapped in an anchor tag -->
                 <a href="https://www.alodokter.com/berbagai-tips-untuk-menjaga-kesehatan-jantung" class="text-decoration-none">
@@ -127,19 +174,6 @@
 
             <div class="col-4 my-2">
                 <!-- Card wrapped in an anchor tag -->
-                <a href="https://www.halodoc.com/artikel/cegah-serangan-penyakit-jantung-dengan-kebiasaan-ini" class="text-decoration-none">
-                    <div class="card">
-                        <img src="https://d324bm9stwnv8c.cloudfront.net/artikel/20180530081132.178-2097746932.jpg" width="286" height="180" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Cegah Serangan Penyakit Jantung dengan Kebiasaan Ini</h5>
-                            <p class="card-text">Meskipun berisiko mengalami penyakit jantung turunan, kamu bisa melakukan pencegahan..</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-4 my-2">
-                <!-- Card wrapped in an anchor tag -->
                 <a href="https://www.herminahospitals.com/id/articles/bahaya-merokok-pada-kesehatan-jantung.html" class="text-decoration-none">
                     <div class="card">
                         <img src="https://dk4fkkwa4o9l0.cloudfront.net/production/uploads/article/image/2387/Desain_tanpa_judul__13_.jpg" width="286" height="180" class="card-img-top" alt="...">
@@ -151,40 +185,137 @@
                 </a>
             </div>
 
-
-            <div class="col-4 my-2">
-                <!-- Card wrapped in an anchor tag -->
-                <a href="https://rsupwahidin.com/berita-101-rokok-dan-penyakit-jantung-.html" class="text-decoration-none">
-                    <div class="card">
-                        <img src="https://rsupwahidin.com/plugins/kcfinder/upload/images/Rokok%20dan%20Jantung%20(2).jpg" width="286" height="180" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">ROKOK DAN PENYAKIT JANTUNG</h5>
-                            <p class="card-text">Merokok mengganggu kesehatan, kenyataan ini tidak dapat kita pungkiri. Banyak penyakit terjadi akibat merokok, baik secara langsung maupun tidak langsung. Penelitian di Jakarta menunjukkan bahwa 64,8 persen pria dan 9,8 persen wanita dengan usia di atas 13 tahun adalah perokok</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            
-            <div class="col-4 my-2">
-                <!-- Card wrapped in an anchor tag -->
-                <a href="https://yankes.kemkes.go.id/view_artikel/3220/olahraga-dan-penurunan-risiko-gagal-jantung-pada-penderita-depresi-dan-cemas" class="text-decoration-none">
-                    <div class="card">
-                        <img src="https://yankes.kemkes.go.id/img/bg-img/gambarartikel_1709713590_641110.jpg" width="286" height="180" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Olahraga dan Penurunan Risiko Gagal Jantung pada Penderita Depresi dan Cemas</h5>
-                            <p class="card-text"></p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            
         </div>
     </div>
 </div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var predictionElement = document.getElementById('predictionValue');
+        var prediction = predictionElement.textContent.trim();
+        var predictionImage = document.getElementById('predictionImage');
+        var suggestionCard = document.getElementById('suggestionCard');
+        
+        // Mendapatkan nilai-nilai dari elemen
+        var sysBP = parseInt('{{ systolic }}');
+        var diastolicBP = parseInt('{{ diastolic }}');
+        var glucose = parseInt('{{ glucose }}');
+        var cholesterol = parseInt('{{ cholesterol }}');
+        var bmi = parseFloat('{{ bmi }}');
+        var obesity = '{{ bmiStatus }}';
+        var smoking = '{{ smoking }}';
+        var age = parseInt('{{ age }}');
+        var heartRate = parseInt('{{ heartRate }}');
+        
+        var suggestion = '';
+
+        if (prediction == 'Risk') {
+            predictionElement.textContent = 'Berisiko Terkena Penyakit Jantung';
+            predictionImage.src = "{% static 'img/warning.png' %}";
+        
+            suggestion += '<ul><h5 class="card-title">Saran untuk Pasien yang Risiko Penyakit Jantung</h5>';
+            
+            suggestion += '<li>Lakukan perubahan gaya hidup sehat seperti mengurangi asupan makanan berlemak, rutin berolahraga, dan berhenti merokok. Konsultasikan dengan dokter untuk penanganan lebih lanjut.</li>';
+        
+            if (age > 30) {
+                suggestion += '<li>Rutin memantau kesehatan seiring bertambahnya usia.</li>';
+            }
+        
+            if (sysBP > 130 || diastolicBP > 80) {
+                suggestion += '<li>Mengontrol tekanan darah melalui diet, olahraga, dan pengobatan jika diperlukan.</li>';
+            }
+        
+            if (glucose > 126) {
+                suggestion += '<li>Memantau kadar glukosa, mengikuti diet rendah gula, dan rutin berolahraga.</li>';
+            }
+        
+            if (cholesterol > 200) {
+                suggestion += '<li>Memantau kadar kolesterol, mengikuti diet sehat, dan menggunakan obat penurun kolesterol jika diperlukan.</li>';
+            }
+        
+            if (bmi >= 25 && bmi < 30) {
+                suggestion += '<li>Menjaga berat badan ideal melalui diet sehat dan olahraga rutin.</li>';
+            }
+        
+            if (obesity.toLowerCase() == 'yes') {
+                suggestion += '<li>Mengurangi berat badan melalui diet dan aktivitas fisik.</li>';
+            }
+        
+            if (heartRate < 60 || heartRate > 100) {
+                suggestion += '<li>Menjaga detak jantung dalam rentang normal melalui aktivitas fisik dan teknik relaksasi.</li>';
+            }
+        
+            if (smoking.toLowerCase() == 'yes') {
+                suggestion += '<li>Berhenti merokok untuk kesehatan jantung dan kesehatan secara keseluruhan.</li>';
+            }
+        
+            suggestion += '</ul>'; // Akhiri list
+        
+        } else {
+            predictionElement.textContent = 'Tidak Berisiko Terkena Penyakit Jantung';
+            predictionImage.src = "{% static 'img/security.png' %}";
+        
+            suggestion += '<ul><h5 class="card-title">Saran untuk Pasien yang Tidak Berisiko Penyakit Jantung</h5>';
+        
+            suggestion += '<li>Tetap jaga pola hidup sehat dengan makan makanan bergizi, berolahraga secara teratur, dan hindari kebiasaan merokok. Lakukan pemeriksaan kesehatan rutin untuk memastikan kondisi tetap baik.</li>';
+            
+            if (age > 30) {
+                suggestion += '<li>Rutin memantau kesehatan seiring bertambahnya usia.</li>';
+            }
+        
+            if (sysBP > 130 || diastolicBP > 80) {
+                suggestion += '<li>Mengontrol tekanan darah melalui diet, olahraga, dan pengobatan jika diperlukan.</li>';
+            }
+        
+            if (glucose > 126) {
+                suggestion += '<li>Memantau kadar glukosa, mengikuti diet rendah gula, dan rutin berolahraga.</li>';
+            }
+        
+            if (cholesterol > 200) {
+                suggestion += '<li>Memantau kadar kolesterol, mengikuti diet sehat, dan menggunakan obat penurun kolesterol jika diperlukan.</li>';
+            }
+        
+            if (bmi >= 25 && bmi < 30) {
+                suggestion += '<li>Menjaga berat badan ideal melalui diet sehat dan olahraga rutin.</li>';
+            }
+        
+            if (obesity.toLowerCase() == 'yes') {
+                suggestion += '<li>Mengurangi berat badan melalui diet dan aktivitas fisik.</li>';
+            }
+        
+            if (heartRate < 60 || heartRate > 100) {
+                suggestion += '<li>Menjaga detak jantung dalam rentang normal melalui aktivitas fisik dan teknik relaksasi.</li>';
+            }
+        
+            if (smoking.toLowerCase() == 'yes') {
+                suggestion += '<li>Berhenti merokok untuk kesehatan jantung dan kesehatan secara keseluruhan.</li>';
+            }
+        
+            suggestion += '</ul>'; // Akhiri list
+        }
+        
+        suggestionCard.innerHTML = suggestion;
+        
+        
+    });
+
+    
+        document.addEventListener("DOMContentLoaded", function() {
+            var genderText = document.getElementById("genderText");
+            var genderImage = document.getElementById("genderImage");
+    
+            if (genderText.innerText.trim().toLowerCase() === "female") {
+                genderText.innerText = "Wanita";
+                genderImage.src = "{% static 'img/female.png' %}";
+            } else if (genderText.innerText.trim().toLowerCase() === "male") {
+                genderText.innerText = "Pria";
+                genderImage.src = "{% static 'img/male.png' %}";
+            }
+        });
+    </script>
+    
 </body>
 
 </html>

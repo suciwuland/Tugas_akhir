@@ -22,6 +22,8 @@
         <div class="col-md-6"  >
             <div class="card">
                 <div class="card-body">
+                    <center>
+                    <h4>Hasil Klasifikasi Risiko Penyakit Jantung</h4></center>
                     <canvas id="barChart" width="400" height="300" class="mx-auto"></canvas>
                 </div>
             </div>
@@ -29,6 +31,9 @@
         <div class="col-md-6" >
             <div class="card">
                 <div class="card-body">
+                    <center>
+                    <h4>Proporsi Pasien Perokok dan Non-Perokok</h4>    
+                    </center>
                     <canvas id="donutChart"   class="mx-auto"></canvas>
                 </div>
             </div>
@@ -38,40 +43,46 @@
         <div class="col-12 py-4">
             <div class="card">
                 <div class="card-body">
-                    <div class="table-responsive">
+                    <div class="text-left mt-2">
+                        <a href="{% url 'laporan_pdf'%}" class="btn btn-primary">Download PDF</a>
+                    </div>
+                    <div class="table-responsive mt-3">
                         <table class="table table-bordered table-hover" id="dataTablesId">
                             <thead class="table-dark">
                                 <tr>
-                                    <th>Age</th>
-                                    <th>Sex</th>
-                                    <th>Cholesterol</th>
-                                    <th>Blood Pressure</th>
-                                    <th>Heart Rate</th>
-                                    <th>Diabetes</th>
-                                    <th>Family History</th>
-                                    <th>Smoking</th>
-                                    <th>Obesity</th>
-                                    <th>Diet</th>
-                                    <th>BMI</th>
-                                    <th>Heart Attack Risk</th>
+                                    <th style="text-align: center;">No</th>
+                                    <th style="text-align: center;">Umur <i style="font-size:12px">(Age)</i></th>
+                                    <th style="text-align: center;">Jenis Kelamin <i style="font-size:12px">(Gender)</i></th>
+                                    <th style="text-align: center;">Kadar Kolesterol <i style="font-size:12px">(Cholesterol)</i></th>
+                                    <th style="text-align: center;">Tekanan Darah <i style="font-size:12px">(Blood Pressure)</i></th>
+                                    <th style="text-align: center;">Detak Jantung <i style="font-size:12px">(Heart Rate)</i></th>
+                                    <th style="text-align: center;">Diabetes</th>
+                                    <th style="text-align: center;">Glukosa</th>
+                                    <th style="text-align: center;">Perokok <i style="font-size:12px">(Smoker)</i></th>
+                                    <th style="text-align: center;">Massa Indeks Tubuh (BMI)</th>
+                                    <th style="text-align: center;">Status Obesitas <i style="font-size:12px">(Obesity)</i></th>
+                                    <th style="text-align: center;">Hasil Klasifikasi</th>
+                                    <th style="text-align: center;">Aksi</th>
                                 </tr>
                             </thead>
+                            
                             <tbody>
                                 {% for data in datapasien %}
-                                <tr>
+                                 <td>{{ forloop.counter0|add:1 }}</td> 
                                  <td>{{ data.age }}</td>
                                  <td>{{ data.gender }}</td>
                                  <td>{{ data.cholesterol }}</td>
                                  <td>{{ data.systolic }}/{{ data.diastolic }}</td>
                                  <td>{{ data.heartRate }}</td>
                                  <td>{{ data.diabetes }}</td>
-                                 <td>{{ data.familyHistory }}</td>
+                                 <td>{{ data.glucose }}</td>
                                  <td>{{ data.smoking }}</td>
-                                 <td>{{ data.bmiStatus }}</td>
-                                 <td>{{ data.eatingPatterns }}</td>
                                  <td>{{ data.bmi }}</td>
+                                 <td>{{ data.bmiStatus }}</td>
                                  <td>{{ data.prediction }}</td>
-                                 </tr>
+                                 <td>
+                                    <a href="{% url 'pasien.destroy' id=data.id_str %}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?');">Delete</a>   
+                                 </td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
@@ -106,8 +117,8 @@
                         label: 'Male',
                         data: {{ bar_pasien.male|safe }}, 
                         backgroundColor: [
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 88, 132, 0.2)'
+                            'rgb(54, 162, 235, 0.2)',
+                            'rgba(54, 162, 235, 0.2)'
                         ],
                         borderColor: [
                             'rgba(255, 88, 132, 0.2)',
@@ -119,7 +130,7 @@
                         label: 'Female',
                         data: {{ bar_pasien.female|safe }}, 
                         backgroundColor: [
-                            'rgba(54, 162, 235, 0.2)',
+                            'rgb(255, 99, 132, 0.2)',
                             'rgba(255, 99, 132, 0.2)'
                         ],
                         borderColor: [

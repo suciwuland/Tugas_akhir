@@ -1,0 +1,258 @@
+    {% load static %}
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Heart Disease Risk Check System</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        color: #333;
+        background-color: #f8f8f8;
+    }
+
+    h1, h2, h3, h4 {
+        color: #2c3e50;
+        margin-bottom: 10px;
+    }
+
+    h1 {
+        font-size: 24px;
+        border-bottom: 2px solid #2c3e50;
+        padding-bottom: 10px;
+        margin-top: 0;
+    }
+
+    h2 {
+        font-size: 20px;
+        border-bottom: 1px solid #2c3e50;
+        padding-bottom: 5px;
+        margin-top: 20px;
+    }
+
+    h3 {
+        font-size: 18px;
+        margin-top: 15px;
+    }
+
+    p {
+        line-height: 1.6;
+        margin-bottom: 15px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+    }
+
+    table, th, td {
+        border: 1px solid #ddd;
+    }
+
+    th, td {
+        padding: 10px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    a {
+        color: #3498db;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        font-size: 12px;
+        color: #777;
+        border-top: 1px solid #ddd;
+        padding: 10px 0;
+    }
+
+    .page-break {
+        page-break-before: always;
+    }
+    </style>
+    </head>
+
+    <body>
+        <div class="container-fluid">
+            <div class="row py-4">
+                <center>
+                    <h1>Klasifikasi Risiko Penyakit Jantung dengan Metode SVM</h1>
+                    <h2>Informasi Klinis Pasien</h2>
+                    <h3>Pasien Information</h3>
+                </center>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Informasi <i>(Information)</i></th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Umur <i>(Age)</i></td>
+                            <td class="text-muted" style="font-size:20px">{{ age }}</td>
+                        </tr>
+                        <tr>
+                            <td>Jenis Kelamin <i>(Gender)</i></td>
+                            <td class="text-muted" style="font-size:20px">{{ gender }}</td>
+                        </tr>
+                        <tr>
+                            <td>Kadar Kolesterol <i>(Cholesterol Levels)</i></td>
+                            <td class="text-muted" style="font-size:20px">{{ cholesterol }} mg/dL</td>
+                        </tr>
+                        <tr>
+                            <td>Tekanan Darah <i>(Blood Pressure)</i></td>
+                            <td class="text-muted" style="font-size:20px">{{ systolic }}/{{ diastolic }} mmHg</td>
+                        </tr>
+                        <tr>
+                            <td>Detak Jantung <i>(Heart Rate)</i></td>
+                            <td class="text-muted" style="font-size:20px">{{ heartRate }} bpm</td>
+                        </tr>
+                        <tr>
+                            <td>Glukosa <i>(Glucose)</i></td>
+                            <td class="text-muted" style="font-size:20px">{{ glucose }}</td>
+                        </tr>
+                        <tr>
+                            <td>Perokok <i>(Smoker)</i></td>
+                            <td class="text-muted" style="font-size:20px">{{ smoking }}</td>
+                        </tr>
+                        <tr>
+                            <td>Massa Indeks Tubuh <i>(Body Mass Index)</i></td>
+                            <td class="text-muted" style="font-size:20px">{{ bmi }}</td>
+                        </tr>
+                        <tr>
+                            <td>Status Obesitas <i>(Obesity)</i></td>
+                            <td class="text-muted" style="font-size:20px">{{ bmiStatus }}</td>
+                        </tr>
+                        <tr>
+                            <td>Hasil Klasifikasi <i>(Clasification Result)</i></td>
+                            <td class="text-muted" style="font-size:20px">{{ prediction }}</td>
+                        </tr>
+                        <!-- Menambahkan baris untuk saran -->
+                        <tr>
+                            <td>Saran <i>(Suggestions)</i></td>
+                            <td id="suggestionID" class="text-muted" style="font-size:20px"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var suggestionElement = document.getElementById('suggestionID');
+    
+                var sysBP = parseInt('{{ systolic }}');
+                var diastolicBP = parseInt('{{ diastolic }}');
+                var glucose = parseInt('{{ glucose }}');
+                var cholesterol = parseInt('{{ cholesterol }}');
+                var bmi = parseFloat('{{ bmi }}');
+                var obesity = '{{ bmiStatus }}';
+                var smoking = '{{ smoking }}';
+                var age = parseInt('{{ age }}');
+                var heartRate = parseInt('{{ heartRate }}');
+                var prediction = '{{ prediction }}';
+    
+                var suggestion = '';
+    
+                if (prediction == 'Risk') {
+                    suggestion += '<ul>';
+                    
+                    if (age > 30) {
+                        suggestion += '<li>Rutin memantau kesehatan seiring bertambahnya usia.</li>';
+                    }
+                    if (sysBP > 130 || diastolicBP > 80) {
+                        suggestion += '<li>Mengontrol tekanan darah melalui diet, olahraga, dan pengobatan jika diperlukan.</li>';
+                    }
+                    if (glucose > 126) {
+                        suggestion += '<li>Memantau kadar glukosa, mengikuti diet rendah gula, dan rutin berolahraga.</li>';
+                    }
+                    if (cholesterol > 200) {
+                        suggestion += '<li>Memantau kadar kolesterol, mengikuti diet sehat, dan menggunakan obat penurun kolesterol jika diperlukan.</li>';
+                    }
+                    if (bmi >= 25 && bmi < 30) {
+                        suggestion += '<li>Menjaga berat badan ideal melalui diet sehat dan olahraga rutin.</li>';
+                    }
+                    if (obesity.toLowerCase() == 'yes') {
+                        suggestion += '<li>Mengurangi berat badan melalui diet dan aktivitas fisik.</li>';
+                    }
+                    if (heartRate < 60 || heartRate > 100) {
+                        suggestion += '<li>Menjaga detak jantung dalam rentang normal melalui aktivitas fisik dan teknik relaksasi.</li>';
+                    }
+                    if (smoking.toLowerCase() == 'yes') {
+                        suggestion += '<li>Berhenti merokok untuk kesehatan jantung dan kesehatan secara keseluruhan.</li>';
+                    }
+    
+                    suggestion += '</ul>';
+                } else {
+                    suggestion += '<ul>'
+                    
+                    if (age > 30) {
+                        suggestion += '<li>Rutin memantau kesehatan seiring bertambahnya usia.</li>';
+                    }
+                    if (sysBP > 130 || diastolicBP > 80) {
+                        suggestion += '<li>Mengontrol tekanan darah melalui diet, olahraga, dan pengobatan jika diperlukan.</li>';
+                    }
+                    if (glucose > 126) {
+                        suggestion += '<li>Memantau kadar glukosa, mengikuti diet rendah gula, dan rutin berolahraga.</li>';
+                    }
+                    if (cholesterol > 200) {
+                        suggestion += '<li>Memantau kadar kolesterol, mengikuti diet sehat, dan menggunakan obat penurun kolesterol jika diperlukan.</li>';
+                    }
+                    if (bmi >= 25 && bmi < 30) {
+                        suggestion += '<li>Menjaga berat badan ideal melalui diet sehat dan olahraga rutin.</li>';
+                    }
+                    if (obesity.toLowerCase() == 'yes') {
+                        suggestion += '<li>Mengurangi berat badan melalui diet dan aktivitas fisik.</li>';
+                    }
+                    if (heartRate < 60 || heartRate > 100) {
+                        suggestion += '<li>Menjaga detak jantung dalam rentang normal melalui aktivitas fisik dan teknik relaksasi.</li>';
+                    }
+                    if (smoking.toLowerCase() == 'yes') {
+                        suggestion += '<li>Berhenti merokok untuk kesehatan jantung dan kesehatan secara keseluruhan.</li>';
+                    }
+    
+                    suggestion += '</ul>';
+                }
+    
+                // Menempatkan saran di dalam elemen suggestionID
+                suggestionID.innerHTML = suggestion;
+            });
+        </script>
+        
+    </body>
+
+    </html>
