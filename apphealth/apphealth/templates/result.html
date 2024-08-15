@@ -217,34 +217,32 @@
         
             suggestion += '<ul><h5 class="card-title">Saran untuk Pasien yang Risiko Penyakit Jantung</h5>';
             
-            suggestion += '<li>Lakukan perubahan gaya hidup sehat seperti mengurangi asupan makanan berlemak, rutin berolahraga, dan berhenti merokok. Konsultasikan dengan dokter untuk penanganan lebih lanjut.</li>';
-        
             if (age > 30) {
                 suggestion += '<li>Rutin memantau kesehatan seiring bertambahnya usia.</li>';
             }
         
             if (sysBP > 130 || diastolicBP > 80) {
-                suggestion += '<li>Mengontrol tekanan darah melalui diet, olahraga, dan pengobatan jika diperlukan.</li>';
+                suggestion += '<li> Karena Tekanan Darah Anda diatas nilai normal, lakukan pengontrolan tekanan darah melalui diet, olahraga, dan pengobatan jika diperlukan.</li>';
             }
         
             if (glucose > 126) {
-                suggestion += '<li>Memantau kadar glukosa, mengikuti diet rendah gula, dan rutin berolahraga.</li>';
+                suggestion += '<li>Kadar Glukosa anda melebihi batas normal, pantau kadar glukosa, mengikuti diet rendah gula, dan rutin berolahraga.</li>';
             }
         
             if (cholesterol > 200) {
-                suggestion += '<li>Memantau kadar kolesterol, mengikuti diet sehat, dan menggunakan obat penurun kolesterol jika diperlukan.</li>';
+                suggestion += '<li>Kadar kolesterol anda tinggi, lakukan pemantauan kadar kolesterol, mengikuti diet sehat, dan menggunakan obat penurun kolesterol jika diperlukan.</li>';
             }
         
             if (bmi >= 25 && bmi < 30) {
-                suggestion += '<li>Menjaga berat badan ideal melalui diet sehat dan olahraga rutin.</li>';
+                suggestion += '<li>BMI anda sudah melebihi berat normal, jagalah berat badan ideal melalui diet sehat dan olahraga rutin.</li>';
             }
         
             if (obesity.toLowerCase() == 'yes') {
-                suggestion += '<li>Mengurangi berat badan melalui diet dan aktivitas fisik.</li>';
+                suggestion += '<li>Obesitas sangat mudah terserang penyakit, kurangi berat badan melalui diet dan aktivitas fisik.</li>';
             }
         
             if (heartRate < 60 || heartRate > 100) {
-                suggestion += '<li>Menjaga detak jantung dalam rentang normal melalui aktivitas fisik dan teknik relaksasi.</li>';
+                suggestion += '<li>Detak jantung anda tidak berada dalam batas normal, jaga detak jantung dalam rentang normal melalui aktivitas fisik dan teknik relaksasi.</li>';
             }
         
             if (smoking.toLowerCase() == 'yes') {
@@ -259,34 +257,34 @@
         
             suggestion += '<ul><h5 class="card-title">Saran untuk Pasien yang Tidak Berisiko Penyakit Jantung</h5>';
         
-            suggestion += '<li>Tetap jaga pola hidup sehat dengan makan makanan bergizi, berolahraga secara teratur, dan hindari kebiasaan merokok. Lakukan pemeriksaan kesehatan rutin untuk memastikan kondisi tetap baik.</li>';
+            suggestion += '<li>Tetap jaga pola hidup sehat dengan makan makanan bergizi, berolahraga secara teratur. Lakukan pemeriksaan kesehatan rutin untuk memastikan kondisi tetap baik.</li>';
             
             if (age > 30) {
                 suggestion += '<li>Rutin memantau kesehatan seiring bertambahnya usia.</li>';
             }
         
             if (sysBP > 130 || diastolicBP > 80) {
-                suggestion += '<li>Mengontrol tekanan darah melalui diet, olahraga, dan pengobatan jika diperlukan.</li>';
+                suggestion += '<li> Karena Tekanan Darah Anda diatas nilai normal, lakukan pengontrolan tekanan darah melalui diet, olahraga, dan pengobatan jika diperlukan.</li>';
             }
         
             if (glucose > 126) {
-                suggestion += '<li>Memantau kadar glukosa, mengikuti diet rendah gula, dan rutin berolahraga.</li>';
+                suggestion += '<li>Kadar Glukosa anda melebihi batas normal, pantau kadar glukosa, mengikuti diet rendah gula, dan rutin berolahraga.</li>';
             }
         
             if (cholesterol > 200) {
-                suggestion += '<li>Memantau kadar kolesterol, mengikuti diet sehat, dan menggunakan obat penurun kolesterol jika diperlukan.</li>';
+                suggestion += '<li>Kadar kolesterol anda tinggi, lakukan pemantauan kadar kolesterol, mengikuti diet sehat, dan menggunakan obat penurun kolesterol jika diperlukan.</li>';
             }
         
             if (bmi >= 25 && bmi < 30) {
-                suggestion += '<li>Menjaga berat badan ideal melalui diet sehat dan olahraga rutin.</li>';
+                suggestion += '<li>BMI anda sudah melebihi berat normal, jagalah berat badan ideal melalui diet sehat dan olahraga rutin.</li>';
             }
         
             if (obesity.toLowerCase() == 'yes') {
-                suggestion += '<li>Mengurangi berat badan melalui diet dan aktivitas fisik.</li>';
+                suggestion += '<li>Obesitas sangat mudah terserang penyakit, kurangi berat badan melalui diet dan aktivitas fisik.</li>';
             }
         
             if (heartRate < 60 || heartRate > 100) {
-                suggestion += '<li>Menjaga detak jantung dalam rentang normal melalui aktivitas fisik dan teknik relaksasi.</li>';
+                suggestion += '<li>Detak jantung anda tidak berada dalam batas normal, jaga detak jantung dalam rentang normal melalui aktivitas fisik dan teknik relaksasi.</li>';
             }
         
             if (smoking.toLowerCase() == 'yes') {
